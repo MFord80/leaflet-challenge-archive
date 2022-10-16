@@ -1,4 +1,3 @@
-
 // Create the createMap function.
 function createMap(earthquakeObjects) {
     let usgsMap = L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}', {
@@ -37,6 +36,7 @@ function createMap(earthquakeObjects) {
         let div = L.DomUtil.create('div', 'info legend'),
             depths = ["-10 to 10", "10 to 30", "30 to 50", "50 to 70", "70 to 90", "90+"];
             let depthColors = ["#feb56b","#e06c5d","#ca495c","#ac255e","#5b1061","#1f005c"]
+            div.innerHTML = '<h3>Depth (km)</h3>'
         // loop through our depth colours and depths
         for (var i = 0; i < depths.length; i++) {
             div.innerHTML +=
@@ -48,7 +48,7 @@ function createMap(earthquakeObjects) {
     legend.addTo(myMap);
 };
 
-// Create getColor function (by depth) for circle color and legend
+// Create getColor function (by depth) for circle color
 function getColor(depth) {
     return  depth < 10 ? "#feb56b" :
             depth < 30 ? "#e06c5d" :
@@ -64,7 +64,6 @@ function createEarthquakes(response) {
     let earthquakes = response.features;
     // Initialise an array to hold the earthquake objects
     let earthquakeObjects= [];
-    // let depthColors = ["#feb56b","#e06c5d","#ca495c","#ac255e","#5b1061","#1f005c"]
     // Loop through the earthquakes array
     for (let index = 0; index < earthquakes.length; index++) {
         let earthquake = earthquakes[index];
@@ -80,13 +79,11 @@ function createEarthquakes(response) {
     // Add the object to the earthquakeObjects array.    
     earthquakeObjects.push(earthquakeLocation);
     };
-
     // Create a layer group that's made from the earthquakeObjects array, and pass it to the createMap function.
     createMap(L.layerGroup(earthquakeObjects));
 }
 
 // Data source
 earthquakeURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
-
 //Get GeoJSON data
 d3.json(earthquakeURL).then(createEarthquakes);
