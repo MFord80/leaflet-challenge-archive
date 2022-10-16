@@ -56,7 +56,6 @@ function getColor(depth) {
             depth < 70 ? "#ac255e" :
             depth < 90 ? "#5b1061" :
                          "#1f005c";
-
 }
 
 // Create the createEarthquakes function.
@@ -86,17 +85,8 @@ function createEarthquakes(response) {
     createMap(L.layerGroup(earthquakeObjects));
 }
 
-// // Create the createTectonicPlates function.
-// function createTectonicPlates(response) {
-
-// }
-
-
 // Data source
-earthquake_url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
-tectonicPlates_url = "https://github.com/fraxen/tectonicplates/blob/master/GeoJSON/PB2002_plates.json"
-
+earthquakeURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 
 //Get GeoJSON data
-d3.json(earthquake_url).then(createEarthquakes);
-d3.json(tectonicPlates_url).then(createTectonicPlates);
+d3.json(earthquakeURL).then(createEarthquakes);
